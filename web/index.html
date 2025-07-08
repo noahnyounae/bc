@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ActionChain Token - Trading Interface</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔗 ActionChain Token (ACT)</h1>
+            <div class="price-display">
+                <span class="current-price">1.20 ꜩ</span>
+                <span class="price-change positive">+0.05 (+4.35%)</span>
+            </div>
+        </header>
+
+        <main>
+            <div class="trading-section">
+                <!-- Graphique des prix -->
+                <div class="chart-container">
+                    <h2>Graphique des Prix</h2>
+                    <canvas id="priceChart"></canvas>
+                </div>
+
+                <!-- Carnet d'ordres -->
+                <div class="orderbook-container">
+                    <h2>Carnet d'Ordres</h2>
+                    
+                    <div class="orderbook">
+                        <div class="sell-orders">
+                            <h3>Ordres de Vente</h3>
+                            <div class="order-header">
+                                <span>Prix (ꜩ)</span>
+                                <span>Quantité</span>
+                                <span>Total (ꜩ)</span>
+                            </div>
+                            <div id="sellOrdersList" class="orders-list">
+                                <!-- Les ordres de vente seront ajoutés ici -->
+                            </div>
+                        </div>
+
+                        <div class="spread-info">
+                            <div class="spread">Spread: 0.02 ꜩ</div>
+                        </div>
+
+                        <div class="buy-orders">
+                            <h3>Ordres d'Achat</h3>
+                            <div class="order-header">
+                                <span>Prix (ꜩ)</span>
+                                <span>Quantité</span>
+                                <span>Total (ꜩ)</span>
+                            </div>
+                            <div id="buyOrdersList" class="orders-list">
+                                <!-- Les ordres d'achat seront ajoutés ici -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interface de trading -->
+                <div class="trading-interface">
+                    <h2>Passer un Ordre</h2>
+                    
+                    <div class="order-forms">
+                        <div class="buy-form">
+                            <h3>Acheter ACT</h3>
+                            <form id="buyForm">
+                                <div class="form-group">
+                                    <label for="buyPrice">Prix (ꜩ):</label>
+                                    <input type="number" id="buyPrice" step="0.01" min="0.01" placeholder="1.20">
+                                </div>
+                                <div class="form-group">
+                                    <label for="buyQuantity">Quantité:</label>
+                                    <input type="number" id="buyQuantity" min="1" placeholder="100">
+                                </div>
+                                <div class="form-group">
+                                    <label>Total: <span id="buyTotal">0.00 ꜩ</span></label>
+                                </div>
+                                <button type="submit" class="buy-btn">Acheter</button>
+                            </form>
+                        </div>
+
+                        <div class="sell-form">
+                            <h3>Vendre ACT</h3>
+                            <form id="sellForm">
+                                <div class="form-group">
+                                    <label for="sellPrice">Prix (ꜩ):</label>
+                                    <input type="number" id="sellPrice" step="0.01" min="0.01" placeholder="1.22">
+                                </div>
+                                <div class="form-group">
+                                    <label for="sellQuantity">Quantité:</label>
+                                    <input type="number" id="sellQuantity" min="1" placeholder="100">
+                                </div>
+                                <div class="form-group">
+                                    <label>Total: <span id="sellTotal">0.00 ꜩ</span></label>
+                                </div>
+                                <button type="submit" class="sell-btn">Vendre</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistiques et historique -->
+            <div class="stats-section">
+                <div class="market-stats">
+                    <h2>Statistiques du Marché</h2>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <label>Volume 24h:</label>
+                            <span id="volume24h">15,432 ACT</span>
+                        </div>
+                        <div class="stat-item">
+                            <label>Prix le plus haut:</label>
+                            <span id="highPrice">1.25 ꜩ</span>
+                        </div>
+                        <div class="stat-item">
+                            <label>Prix le plus bas:</label>
+                            <span id="lowPrice">1.15 ꜩ</span>
+                        </div>
+                        <div class="stat-item">
+                            <label>Offre totale:</label>
+                            <span id="totalSupply">1,000,000 ACT</span>
+                        </div>
+                        <div class="stat-item">
+                            <label>Tokens en circulation:</label>
+                            <span id="circulatingSupply">750,000 ACT</span>
+                        </div>
+                        <div class="stat-item">
+                            <label>Capitalisation:</label>
+                            <span id="marketCap">900,000 ꜩ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="trade-history">
+                    <h2>Historique des Transactions</h2>
+                    <div class="trade-header">
+                        <span>Heure</span>
+                        <span>Type</span>
+                        <span>Prix (ꜩ)</span>
+                        <span>Quantité</span>
+                        <span>Total (ꜩ)</span>
+                    </div>
+                    <div id="tradeHistoryList" class="trade-list">
+                        <!-- L'historique des trades sera ajouté ici -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wallet Info -->
+            <div class="wallet-section">
+                <h2>Mon Portefeuille</h2>
+                <div class="wallet-info">
+                    <div class="balance-item">
+                        <label>Solde ACT:</label>
+                        <span id="actBalance">0 ACT</span>
+                    </div>
+                    <div class="balance-item">
+                        <label>Solde Tezos:</label>
+                        <span id="xtzBalance">0.00 ꜩ</span>
+                    </div>
+                    <div class="balance-item">
+                        <label>Valeur totale:</label>
+                        <span id="totalValue">0.00 ꜩ</span>
+                    </div>
+                </div>
+                
+                <div class="wallet-actions">
+                    <button id="connectWallet" class="wallet-btn">Se connecter au Wallet</button>
+                    <button id="refreshBalance" class="wallet-btn" disabled>Actualiser</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
