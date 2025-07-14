@@ -57,7 +57,7 @@ ActionChainToken
 ### Prérequis
 ```bash
 # Installer SmartPy
-curl -s https://smartpy.io/cli/install.sh | bash
+pip install https://smartpy.io/static/tezos_smartpy-0.22.0-py3-none-any.whl
 
 # Installer Node.js pour l'interface web
 npm install -g @taquito/cli
